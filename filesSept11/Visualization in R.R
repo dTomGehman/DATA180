@@ -9,16 +9,16 @@ library("MASS")
 
 #1.
 #SET WORKING DIRECTORY TO THE FOLDER WHERE THE DATASET IS
-setwd("D:/Dickinson College Teaching/DATA 180")
+setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/filesSept11")
 
 read_excel("particulate data.xlsx") # Always keep in mind file extensions excel = .xlsx or .xls, Comma separated value = .csv
 
 #2.
 # READ DIRECTLY FROM THE FOLDER
-p_data<-read_excel("D:/Dickinson College Teaching/DATA 180/particulate data.xlsx")
+p_data<-read_excel("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/filesSept11/particulate data.xlsx")
 
 #3. Read CSV
-p_data_csv = read.csv("D:/Dickinson College Teaching/DATA 180/particulate data.csv")
+p_data_csv = read.csv("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/filesSept11/particulate data.csv")
 
 # Create your own dataset.
 
@@ -60,7 +60,7 @@ hist(p_data$particulate,cex.lab=1.2,cex.axis=1.2,col="lightgray",breaks=seq(0,7,
 box()
 
 #Letting the software choose for you the width of the classes
-hist(Particulate,breaks=14,col="lightgray",xlab="Particulate (g/gal)",cex.lab=1.2,cex.axis=1.3)
+hist(p_data$particulate,breaks=14,col="lightgray",xlab="Particulate (g/gal)",cex.lab=1.2,cex.axis=1.3)
 
 
 
