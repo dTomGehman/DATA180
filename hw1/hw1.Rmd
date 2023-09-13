@@ -3,7 +3,7 @@ title: "HW 1"
 subtitle: "Data 180, Professor Kennedy"
 author: 
   name: "Tom Gehman"
-  email: "XXXX@dickinson.edu"
+  email: "gehmand@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
@@ -25,6 +25,14 @@ Go to [datacamp.com](https://datacamp.com) and complete the tutorial "Introducti
 ## Task 1
 a) Store the data below in a data frame object named `my_df`.
 
+```{r}
+my_df = data.frame(
+  Person = c("Alice", "Bob", "Charlie", "Denise", "Erin", "Frank", "Gisele", "Harry"), 
+  Preference = c("Twitter", "Facebook", "Twitter", "Instagram", "Facebook", "Twitter", "Twitter", "Instagram")
+)
+
+```
+
 
 |Person | Preference|
 |:------|:----------|
@@ -39,11 +47,41 @@ a) Store the data below in a data frame object named `my_df`.
 
 b) What are the dimensions of `my_df`?
 
+```{r}
+#The dimensions of my_df are 8x2. 
+print(dim(my_df))
+```
 c) Write R code that counts the total number of users.
+
+```{r}
+#length of Person column of my_df
+print(length(my_df$Person))
+```
 
 d) Write R code that counts the total number of users who prefer Twitter.
 
+```{r}
+#create boolean vector using condition that Preference=="Twitter"
+twitters = my_df$Preference=="Twitter"
+#print(twitters)
+
+#use boolean vector to index People and store them as a vector, overwriting the first vector
+twitters = my_df$Person[twitters]
+#print(twitters)
+
+#Length of vector of people
+print(length(twitters))
+```
+
 e) Write R code that returns what Gisele prefers.
+
+```{r}
+#which() returns index(es) of my_df$Person when the element =="Gisele"
+#index is then used to index my_df$Preference and identify the corresponding preference
+#I could've used the same method as in part d, but I wanted to try this since it's more concise.  
+print(my_df$Preference[which(my_df$Person=="Gisele")])
+
+```
 
 ## Task 2
 a) Create a vector named `my_vec` that includes all integers from 1 to 10 (inclusive).
