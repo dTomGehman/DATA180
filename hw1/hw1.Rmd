@@ -85,7 +85,9 @@ print(my_df$Preference[which(my_df$Person=="Gisele")])
 
 ## Task 2
 a) Create a vector named `my_vec` that includes all integers from 1 to 10 (inclusive).
-
+```{r}
+my_vec = 1:10
+```
 b) Replace the second element in `my_vec` with the number `99`.
 
 c) Write a function called `my_func` that prints `This element is greater than 5!` if an element in `myvec` is greater than 5, and `This element is NOT greater than 5!` otherwise.
