@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2023-09-13" />
+<meta name="date" content="2023-09-15" />
 
 <title>HW 1</title>
 
@@ -354,7 +354,7 @@ display: none;
 <h4 class="author">Tom Gehman</h4>
 <a class="author_email" href="mailto:#"><a href="mailto:gehmand@dickinson.edu" class="email">gehmand@dickinson.edu</a></a>
 </address>
-<h4 class="date">September 13, 2023</h4>
+<h4 class="date">September 15, 2023</h4>
 
 </div>
 
@@ -378,10 +378,6 @@ the tutorial “Introduction to R”.</p>
 <li>Store the data below in a data frame object named
 <code>my_df</code>.</li>
 </ol>
-<pre class="r"><code>my_df = data.frame(
-  Person = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;, &quot;Denise&quot;, &quot;Erin&quot;, &quot;Frank&quot;, &quot;Gisele&quot;, &quot;Harry&quot;), 
-  Preference = c(&quot;Twitter&quot;, &quot;Facebook&quot;, &quot;Twitter&quot;, &quot;Instagram&quot;, &quot;Facebook&quot;, &quot;Twitter&quot;, &quot;Twitter&quot;, &quot;Instagram&quot;)
-)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -424,6 +420,10 @@ the tutorial “Introduction to R”.</p>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>my_df = data.frame(
+  Person = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;, &quot;Denise&quot;, &quot;Erin&quot;, &quot;Frank&quot;, &quot;Gisele&quot;, &quot;Harry&quot;), 
+  Preference = c(&quot;Twitter&quot;, &quot;Facebook&quot;, &quot;Twitter&quot;, &quot;Instagram&quot;, &quot;Facebook&quot;, &quot;Twitter&quot;, &quot;Twitter&quot;, &quot;Instagram&quot;)
+)</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>What are the dimensions of <code>my_df</code>?</li>
 </ol>
@@ -457,35 +457,79 @@ print(length(twitters))</code></pre>
 <pre class="r"><code>#which() returns index(es) of my_df$Person when the element ==&quot;Gisele&quot;
 #index is then used to index my_df$Preference and identify the corresponding preference
 #I could&#39;ve used the same method as in part d, but I wanted to try this since it&#39;s more concise.  
-print(my_df$Preference[which(my_df$Person==&quot;Gisele&quot;)])</code></pre>
+my_df$Preference[which(my_df$Person==&quot;Gisele&quot;)]</code></pre>
 <pre><code>## [1] &quot;Twitter&quot;</code></pre>
 </div>
 <div id="task-2" class="section level2">
 <h2>Task 2</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Create a vector named <code>my_vec</code> that includes all
-integers from 1 to 10 (inclusive).</p></li>
-<li><p>Replace the second element in <code>my_vec</code> with the number
-<code>99</code>.</p></li>
-<li><p>Write a function called <code>my_func</code> that prints
+<li>Create a vector named <code>my_vec</code> that includes all integers
+from 1 to 10 (inclusive).</li>
+</ol>
+<pre class="r"><code>my_vec = 1:10</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Replace the second element in <code>my_vec</code> with the number
+<code>99</code>.</li>
+</ol>
+<pre class="r"><code>my_vec[2]=99
+#print(my_vec)</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Write a function called <code>my_func</code> that prints
 <code>This element is greater than 5!</code> if an element in
 <code>myvec</code> is greater than 5, and
-<code>This element is NOT greater than 5!</code> otherwise.</p></li>
+<code>This element is NOT greater than 5!</code> otherwise.</li>
 </ol>
+<pre class="r"><code>my_func = function(index) {#index is the index of my_vec to compare
+  if (my_vec[index]&gt;5){
+    print(&quot;This element is greater than 5!&quot;)
+  } else {
+    print(&quot;This element is NOT greater than 5!&quot;)
+  }
+}
+#example function calls to test my_func()
+# my_func(1)
+# my_func(2)
+# my_func(5)
+# my_func(9)</code></pre>
 </div>
 <div id="task-3" class="section level2">
 <h2>Task 3</h2>
 <ol style="list-style-type: lower-alpha">
-<li><p>Write a function named <code>get_fibonacci</code> that returns
-the n’th value in the <a href="https://www.mathsisfun.com/numbers/fibonacci-sequence.html">fibonacci
+<li>Write a function named <code>get_fibonacci</code> that returns the
+n’th value in the <a href="https://www.mathsisfun.com/numbers/fibonacci-sequence.html">fibonacci
 sequence</a>. For example, <code>get_fibonacci(5)</code> should return
 3; <code>get_fibonacci(7)</code> should return 8 and so on.
 <em><strong>Hint:</strong> It is possible to call the same function from
 inside it. E.g., you can call <code>get_fibonacci()</code> from inside
-<code>get_fibonacci()</code>. Like inception!</em></p></li>
-<li><p>Using your function in part (a), find and return the 19th value
-in the fibonacci sequence.</p></li>
+<code>get_fibonacci()</code>. Like inception!</em></li>
 </ol>
+<pre class="r"><code>get_fibonacci = function(term, seed1=0, seed2=1){#optional arguments are only used when the function calls itself.  
+  if (term==1){#return 0 for first term
+    return(0)
+  } else if (term&gt;3){
+    #term-1 allows function to count down and repeat for the number of terms
+    #seed1 and seed2 represent the previous two numbers in the sequence as the function calculates the next one.  
+    #seed2 becomes the next seed1, and seed1+seed2 becomes the next seed2
+    get_fibonacci(term-1, seed2, seed1+seed2)
+  } else { #after a number of repeats, terms no longer is &gt;3, signalling that the function is ready to return the final value.  
+    return(seed1+seed2)
+  }
+}
+
+#testing values
+# get_fibonacci(1)
+# get_fibonacci(2)
+# get_fibonacci(3)
+# get_fibonacci(4)
+# get_fibonacci(5)
+# get_fibonacci(6)
+# get_fibonacci(7)</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Using your function in part (a), find and return the 19th value in
+the fibonacci sequence.</li>
+</ol>
+<pre class="r"><code>get_fibonacci(19)</code></pre>
+<pre><code>## [1] 2584</code></pre>
 <p><br> You are done! 🏁 Don’t forget to <code>commit</code> and
 <code>push</code> your .Rmd file to your Github clone repository before
 the due date. <br></p>

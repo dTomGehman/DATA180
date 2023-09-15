@@ -25,15 +25,6 @@ Go to [datacamp.com](https://datacamp.com) and complete the tutorial "Introducti
 ## Task 1
 a) Store the data below in a data frame object named `my_df`.
 
-```{r}
-my_df = data.frame(
-  Person = c("Alice", "Bob", "Charlie", "Denise", "Erin", "Frank", "Gisele", "Harry"), 
-  Preference = c("Twitter", "Facebook", "Twitter", "Instagram", "Facebook", "Twitter", "Twitter", "Instagram")
-)
-
-```
-
-
 |Person | Preference|
 |:------|:----------|
 |Alice | Twitter |
@@ -44,6 +35,14 @@ my_df = data.frame(
 | Frank | Twitter |
 | Gisele | Twitter |
 | Harry | Instagram |
+
+```{r}
+my_df = data.frame(
+  Person = c("Alice", "Bob", "Charlie", "Denise", "Erin", "Frank", "Gisele", "Harry"), 
+  Preference = c("Twitter", "Facebook", "Twitter", "Instagram", "Facebook", "Twitter", "Twitter", "Instagram")
+)
+
+```
 
 b) What are the dimensions of `my_df`?
 
@@ -79,7 +78,7 @@ e) Write R code that returns what Gisele prefers.
 #which() returns index(es) of my_df$Person when the element =="Gisele"
 #index is then used to index my_df$Preference and identify the corresponding preference
 #I could've used the same method as in part d, but I wanted to try this since it's more concise.  
-print(my_df$Preference[which(my_df$Person=="Gisele")])
+my_df$Preference[which(my_df$Person=="Gisele")]
 
 ```
 
@@ -103,16 +102,45 @@ my_func = function(index) {#index is the index of my_vec to compare
   }
 }
 #example function calls to test my_func()
-my_func(1)
-my_func(2)
-my_func(5)
-my_func(9)
+# my_func(1)
+# my_func(2)
+# my_func(5)
+# my_func(9)
 ```
 
 ## Task 3
 a. Write a function named `get_fibonacci` that returns the n'th value in the [fibonacci sequence](https://www.mathsisfun.com/numbers/fibonacci-sequence.html). For example, `get_fibonacci(5)` should return 3; `get_fibonacci(7)` should return 8 and so on. ***Hint:** It is possible to call the same function from inside it. E.g., you can call `get_fibonacci()` from inside `get_fibonacci()`. Like inception!*
 
+```{r}
+get_fibonacci = function(term, seed1=0, seed2=1){#optional arguments are only used when the function calls itself.  
+  if (term==1){#return 0 for first term
+    return(0)
+  } else if (term>3){
+    #term-1 allows function to count down and repeat for the number of terms
+    #seed1 and seed2 represent the previous two numbers in the sequence as the function calculates the next one.  
+    #seed2 becomes the next seed1, and seed1+seed2 becomes the next seed2
+    get_fibonacci(term-1, seed2, seed1+seed2)
+  } else { #after a number of repeats, terms no longer is >3, signalling that the function is ready to return the final value.  
+    return(seed1+seed2)
+  }
+}
+
+#testing values
+# get_fibonacci(1)
+# get_fibonacci(2)
+# get_fibonacci(3)
+# get_fibonacci(4)
+# get_fibonacci(5)
+# get_fibonacci(6)
+# get_fibonacci(7)
+
+```
+
+
 b. Using your function in part (a), find and return the 19th value in the fibonacci sequence.
+```{r}
+get_fibonacci(19)
+```
 
 
 <br>
