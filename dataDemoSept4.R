@@ -43,3 +43,5 @@ stripchart(Cars93$MPG.city, method="jitter", pch=16, cex.axis=1.2, cex.lab=1.2, 
 
 hist(Cars93$MPG.city, cex.lab=1.2, cex.axis=1.2, breaks=seq(15, 50, 5), xlab="MPG city")
 
+
+#plot(CArs93$Horsepower, Cars93$MPG.highway)
