@@ -2,8 +2,8 @@
 title: "HW 2: Visualization, Base R"
 subtitle: "Data 180, Professor Kennedy"
 author: 
-  name: "XXXX"
-  email: "XXXX@dickinson.edu"
+  name: "D. Tom Gehman"
+  email: "gehmand@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`' # no need to change date since this line grabs today's date
 output: 
   html_document
@@ -37,10 +37,15 @@ head(Cars93)
 ## Task 1
 a) Create a Frequency table and Relative Frequency table (latter uses percentages) for the variable `Type`. Make sure to round all digits to 3 digits.
 ```{r}
-
+#frequency table
+typeTable = table(Cars93$Type)
+typeTable
+#relative freq
+round(typeTable / nrow(Cars93), 3)
 ```
 b) Create a frequency bar graph for the variable `Type`. You can have count on the y axis.
 ```{r}
+barplot(typeTable, ylab="Frequency", cex.axis=1.2, cex.names=1.2, cex.lab=1.2, col=1:6)
 
 ```
 
@@ -51,13 +56,16 @@ b) Create a frequency bar graph for the variable `Type`. You can have count on t
 
 c) Create a pie chart of the variable `Type`.
 ```{r}
-
+pie(typeTable, main="Types of Cars", col=1:6, cex=1.2)
 ```
 
 * The plot should include a title using the main argument.
 *	The names, labels, and axes sizes (cex parameter) should be set to 1.2
 
 d) What is the mode of the variable `Type`? Comment.
+```{r}
+#The mode is 22 (of midsize cars)
+```
 
 
 ## Task 2 
