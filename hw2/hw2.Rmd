@@ -45,7 +45,7 @@ round(typeTable / nrow(Cars93), 3)
 ```
 b) Create a frequency bar graph for the variable `Type`. You can have count on the y axis.
 ```{r}
-barplot(typeTable, ylab="Frequency", cex.axis=1.2, cex.names=1.2, cex.lab=1.2, col=1:6)
+barplot(typeTable, ylab="Frequency", xlab="Type of Car", cex.axis=1.2, cex.names=1.2, cex.lab=1.2, col=1:6)
 
 ```
 
