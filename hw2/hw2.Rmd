@@ -99,12 +99,24 @@ c) Which histogram more closely follows or rule of thumb for the suggested numbe
 ## Task 3 
 a) What is the type of variable `Passengers`? (Categorical nominal/ordinal or Numerical discrete/continuous?) What happens if we were to make a histogram for `Passengers`? What is the problem with this graph?
 ```{r}
+#'Passengers' is numerical and discrete.  
+#'The problem in the histogram is that it's unclear to the reader what is represented by the bars.  
+#'E.g., does the first bar represent cars w/ 2 seats, 3 seats, or both?  Does the second represent 3s, 4s, or both?  
+#'In this case, there aren't any 3s in the data set, but it looks like there are some on the histogram since the 2s are in that column.  
+#'
+#'I.e., a histogram is not appropriate if the classes are the same size as the distances between the data points.  
 
+# print(Cars93$Passengers)
+# hist(Cars93$Passengers)
 ```
 
 b) Correct the problem in part (a) by creating a more appropriate visualization. Make sure to label your axes, place a title, choose a custom color as in the previous graphs. (Bonus: use factor() with levels option to display x axis values with no observations on the plot.)
 ```{r}
-
+seats=factor(Cars93$Passengers, order=TRUE, levels=2:8) #convert seats into an ordered factor, with numbers 2,3,4...8 as levels 
+barplot(summary(seats), #use summary of the new seats factor as input for barplot
+        main="Frequencies of Numbers of Passengers in Cars", col="green",
+        cex.axis = 1.2, cex.names=1.2, cex.main=1.2, 
+        xlab="Number of Seats in a Car", ylab="Frequency")
 ```
 
 ## Task 4 
