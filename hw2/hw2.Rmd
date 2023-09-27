@@ -99,15 +99,18 @@ c) Which histogram more closely follows or rule of thumb for the suggested numbe
 ## Task 3 
 a) What is the type of variable `Passengers`? (Categorical nominal/ordinal or Numerical discrete/continuous?) What happens if we were to make a histogram for `Passengers`? What is the problem with this graph?
 ```{r}
-#'Passengers' is numerical and discrete.  
+#'Passengers' is numerical and discrete. 
+
+print(sort(Cars93$Passengers))
+hist(Cars93$Passengers)
+
 #'The problem in the histogram is that it's unclear to the reader what is represented by the bars.  
 #'E.g., does the first bar represent cars w/ 2 seats, 3 seats, or both?  Does the second represent 3s, 4s, or both?  
 #'In this case, there aren't any 3s in the data set, but it looks like there are some on the histogram since the 2s are in that column.  
 #'
 #'I.e., a histogram is not appropriate if the classes are the same size as the distances between the data points.  
 
-# print(Cars93$Passengers)
-# hist(Cars93$Passengers)
+
 ```
 
 b) Correct the problem in part (a) by creating a more appropriate visualization. Make sure to label your axes, place a title, choose a custom color as in the previous graphs. (Bonus: use factor() with levels option to display x axis values with no observations on the plot.)
@@ -122,15 +125,24 @@ barplot(summary(seats), #use summary of the new seats factor as input for barplo
 ## Task 4 
 a) Make a histogram of the variable `Length` (the default breaks are fine). Other aspects of the plot should be as in part (a) in Task 2.
 ```{r}
-
+hist(Cars93$Length, main="Car Lengths", xlab="Length (inches)", ylab="Frequency",
+     cex.lab=1.2, cex.axis=1.2, cex.main=1.2,
+     col="red")
 ```
 
 b) What is the shape of the distribution?
+```{r}
+#It is unimodal and roughly symmetrical.  
+```
 
 
 c) Find the mean and median of the variable `Length.` Do these answers meet your expectations from part (b)?
 ```{r}
+print(mean(Cars93$Length)) #mean
+print(median(Cars93$Length)) #median
 
+#Yes, it does meet my expectation.  The mean and median are very close to each other, so the graph is roughly symmetrical (i.e., little/no skew).  
+#There is a slight skew to the right, since the mean>median, but it is small and to be expected.  
 ```
 
 You are done! 🏁 Don't forget to commit and push your .Rmd file to your Github repository before the due date.
