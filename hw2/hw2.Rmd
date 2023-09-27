@@ -71,7 +71,7 @@ d) What is the mode of the variable `Type`? Comment.
 ## Task 2 
 a) Create a histogram of the variable `Horsepower`.
 ```{r}
-
+hist(Cars93$Horsepower, col="blue", xlab="Horsepower", ylab="Frequency", cex.lab=1.2, cex.axis=1.2, cex.main=1.2, main="Horsepower of Cars")
 ```
 
 *	Your axes should be labeled
@@ -81,7 +81,7 @@ a) Create a histogram of the variable `Horsepower`.
 
 b) Create a second histogram with breaks at 25 HP increments instead of 50.
 ```{r}
-
+hist(Cars93$Horsepower, col="blue", xlab="Horsepower", ylab="Frequency", cex.lab=1.2, cex.axis=1.2, cex.main=1.2, main="Horsepower of Cars", breaks=seq(50, 300, 25))
 ```
 
 * Use the breaks argument to define the classes
@@ -89,7 +89,10 @@ b) Create a second histogram with breaks at 25 HP increments instead of 50.
 
 c) Which histogram more closely follows or rule of thumb for the suggested number of classes? Explain.
 ```{r}
-
+#The latter histogram more closely follows the rule of thumb.  
+#The rule of thumb is that the number of classes should be close to the square root of the number of observations.  
+#In this case, there are 93 observations; sqrt(93) = 9.64
+#The histogram in part b has 10 classes, which is close to 9.64; the part a histogram only has 5.  
 ```
 
 
