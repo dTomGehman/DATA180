@@ -45,7 +45,7 @@ round(typeTable / nrow(Cars93), 3)
 ```
 b) Create a frequency bar graph for the variable `Type`. You can have count on the y axis.
 ```{r}
-barplot(typeTable, ylab="Frequency", xlab="Type of Car", cex.axis=1.2, cex.names=1.2, cex.lab=1.2, col=1:6)
+barplot(typeTable, main="Frequencies of Car Types in Cars93", ylab="Frequency", xlab="Type of Car", cex.axis=1.2, cex.names=1.2, cex.lab=1.2, col=1:6)
 
 ```
 
@@ -101,7 +101,7 @@ a) What is the type of variable `Passengers`? (Categorical nominal/ordinal or Nu
 ```{r}
 #'Passengers' is numerical and discrete. 
 
-print(sort(Cars93$Passengers))
+#print(sort(Cars93$Passengers))
 hist(Cars93$Passengers)
 
 #'The problem in the histogram is that it's unclear to the reader what is represented by the bars.  
@@ -142,7 +142,7 @@ print(mean(Cars93$Length)) #mean
 print(median(Cars93$Length)) #median
 
 #Yes, it does meet my expectation.  The mean and median are very close to each other, so the graph is roughly symmetrical (i.e., little/no skew).  
-#There is a slight skew to the right, since the mean>median, but it is small and to be expected.  
+#There is a slight skew to the right, since the mean>median, but it is small and to be expected with any data set.  
 ```
 
 You are done! 🏁 Don't forget to commit and push your .Rmd file to your Github repository before the due date.
