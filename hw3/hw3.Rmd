@@ -2,8 +2,8 @@
 title: "HW 3: Visualization, Ggplot2 & Maps"
 subtitle: "Data 180, Professor Kennedy"
 author: 
-  name: "XXXX"
-  email: "XXXX@dickinson.edu"
+  name: "Tom Gehman"
+  email: "gehmand@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`' # no need to change date since this line grabs today's date
 output: 
   html_document
@@ -38,17 +38,19 @@ Create a simple scatterplot using ggplot2 where x axis shows `EngineSize`, y axi
 * Use xlim and ylim to make sure your x and y axis ranges make sense.
 * Add a title, subtitle, x axis label, y axis label, and a caption using title, subtitle, caption options inside `+ labs()`.
 
- 
 ```{r}
+ggplot(Cars93, aes(EngineSize, MPG.city)) + geom_point(col="blue", size=2) + labs(title="Car Engine Sizes and Gas Mileage", subtitle = "Cars93 Dataset", x="Engine Size (Liters)", y="City Gas Mileage (MPG)", caption="Using GGPlot geom_point to plot 2 variables, EngineSize and MPG.city.")+xlim(1,5.7)+ylim(15,47)
 
 ```
+
+ 
 
 ## Task 2
 Recreate the scatterplot in Task 1. Add the following functionality:
 
 * Use a different color for each car `Type`.
 ```{r}
-
+ggplot(Cars93, aes(EngineSize, MPG.city, colour=Type)) + geom_point(size=2) + labs(title="Car Engine Sizes and Gas Mileage", subtitle = "Cars93 Dataset", x="Engine Size (Liters)", y="City Gas Mileage (MPG)", caption="Using GGPlot geom_point to plot 2 variables, EngineSize and MPG.city.")+xlim(1,5.7)+ylim(15,47)
 ```
 
 ## Task 3
@@ -58,7 +60,7 @@ Recreate the scatterplot in Task 2. Add the following functionality:
 * Make the curve line red, and dashed. (Hint linetype is the option you can use to set line style as 'dashed')
 
 ```{r}
-
+ggplot(Cars93, aes(EngineSize, MPG.city, colour=Type)) + geom_point(size=2) + labs(title="Car Engine Sizes and Gas Mileage", subtitle = "Cars93 Dataset", x="Engine Size (Liters)", y="City Gas Mileage (MPG)", caption="Using GGPlot geom_point to plot 2 variables, EngineSize and MPG.city.")+xlim(1,5.7)+ylim(15,47)+geom_smooth(linetype="dashed", color="red")
 ```
 
 ## Task 4
@@ -69,7 +71,7 @@ Create a barplot showing count of cars by `AirBags` using ggplot2.
 * Add a title, subtitle, x axis label, y axis label, and a caption using title, subtitle, caption options inside `+ labs()`.
 
 ```{r}
-
+ggplot(Cars93, aes(AirBags)) + geom_bar(fill=c("red", "green", "blue")) + labs(title="Airbags in Cars", subtitle="Cars93 Dataset", caption="Using GGPlot goem_bar to plot frequencies of numbers of airbags equipped in cars.", x="Airbags Equipped", y="Frequency")
 ```
 
 ## Task 5
@@ -80,7 +82,7 @@ Recreate the barplot in Task 4 for different car `Origin`, such that you create 
 * in `geom_bar(), use `position='dodge'` to have the barplots side by side.
 
 ```{r}
-
+ggplot(Cars93, aes(Origin, fill=AirBags)) + geom_bar(position='dodge') + labs(title="Airbags in Cars, Foreign & Domestic", subtitle="Cars93 Dataset", caption="Using GGPlot goem_bar to plot frequencies of six categories:  \nUS & non-US Cars, each split by 3 airbag equipment levels.", x="Airbags Equipped", y="Frequency")
 ```
 
 # Maps
