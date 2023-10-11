@@ -103,13 +103,13 @@ Notice that `NAME` includes the name of a state, `geometry` includes spatial coo
 ## Task 1
 Create a map of Australia using `ggplot2`.
 ```{r}
-
+ggplot(au_states)+geom_sf()
 ```
 
 ## Task 2
 Modify your map such that each state is displayed with a different color. (Hint: use the fill option as an aes setting with variable `NAME`.)
 ```{r}
-
+ggplot(au_states)+geom_sf(aes(fill=NAME))
 ```
 ## Task 3
 Read in the capital city dataframe showing each capital and its latitude and longitude information by running:
@@ -133,13 +133,14 @@ Display the capitals as points on your map from Task 1. (Hint: combine `geom_sf(
 * Use `size=2` to make points larger.
 
 ```{r}
-
+ggplot(au_states)+geom_sf(aes(fill=NAME))+geom_point(data=au_capitals, aes(lon, lat), size=2, col='red')
 ```
 
 
 ## Task 4
 Let's take a look at a different projection output. Change your map's projection to epsg 3112 by adding `+ coord_sf()`. Recall the option that goes inside `coord_sf()` is `st_crs(4_digit_code)`
 ```{r}
+ggplot(au_states)+geom_sf(aes(fill=NAME))+geom_point(data=au_capitals, aes(lon, lat), size=2, col='red')+coord_sf(crs=st_crs(3112))
 
 ```
 
@@ -153,7 +154,7 @@ library(mapview)
 Create an interactive map of Australia using `mapview()`
 
 ```{r}
-
+mapview(au_states)
 ```
 
 ## Task 6
@@ -167,7 +168,7 @@ Now add the new spatial capitals object via + (that is, you can use the followin
 * You can use the option `col.regions='red'` to make capitals appear in color red, and `legend=F` in second `mapview()` to remove the uninformative second set of legend. 
 
 ```{r}
-
+mapview(au_states)+mapview(capitals_geo, legend=FALSE, col.regions='red')
 ```
 
 
