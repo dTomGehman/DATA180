@@ -140,8 +140,7 @@ ggplot(au_states)+geom_sf(aes(fill=NAME))+geom_point(data=au_capitals, aes(lon, 
 ## Task 4
 Let's take a look at a different projection output. Change your map's projection to epsg 3112 by adding `+ coord_sf()`. Recall the option that goes inside `coord_sf()` is `st_crs(4_digit_code)`
 ```{r}
-ggplot(au_states)+geom_sf(aes(fill=NAME))+geom_point(data=au_capitals, aes(lon, lat), size=2, col='red')+coord_sf(crs=st_crs(3112))
-
+ggplot(au_states)+geom_sf(aes(fill=NAME))+coord_sf(crs=st_crs(3112))
 ```
 
 ## Task 5
