@@ -2,8 +2,8 @@
 title: "HW 4: Dplyr"
 subtitle: "Data 180, Professor Kennedy"
 author: 
-  name: "Your Name"
-  email: "XXXX@dickinson.edu"
+  name: "Tom Gehman"
+  email: "gehmand@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
@@ -42,45 +42,60 @@ Here are the variables included and their meanings:
 For the entire data, display the summary statistics (mean, median, mode, etc.) using the dplyr function `summary()` via pipe.
 
 ```{r}
-
+records %>% summary()
 ```
 # Question 2
 Return the count of cases where a record was broken in more than a year (365 days).
 
 ```{r}
-
+summarise(filter(records, record_duration>365), count=n())[1,1]
 ```
 # Question 3
 Return name of the player, name of the track, record date, and record duration for the record that took the longest time to be broken.
 
 ```{r}
-
+longest = filter(records, record_duration==3659)
+#player name
+select(longest, player)
+#track
+select(longest, track)
+#record date
+select(longest, date)
+#record duration
+select(longest, record_duration)
 ```
 
 # Question 4
 Return the mean record time (`time`) by each track. What is the name of the track with the fastest average record time? *Hint: you should use `group_by() and summarize()*
 
 ```{r}
-
+tracktimes=arrange(group_by(records, track)%>%summarize(avg=mean(time)), avg)
+tracktimes
+#track name with shortest time
+tracktimes[1, 1]
 ```
 # Question 5
 Let's get the year from the `date` column and save it as a variable named `year`. You can use the function `substr(date, 1, 4)` which grabs the first 4 digits in the `date` column. Use this expression in `mutate()` to create a `year` column. (Don't forget to save/overwrite the dataframe returned to the original one!)
 
 ```{r}
-
+records = mutate(records, year = substr(date, 1, 4))
+head(records)
 ```
 
 # Question 6
 Now get the average record time (`time`) by year.
 
 ```{r}
-
+yeartimes = summarise(group_by(records, year), avg = mean(time))
+yeartimes
 ```
 # Question 7
 Continuing with your results in Question 6: Do you notice a trend across years? Are the record times getting faster, slower, or no clear pattern in time? Create a barplot where each year appears on the x axis (you can treat year as a categorical variable in this case) and y axis showing the mean record time in each year. Interpret your graph. *Hint: Use your code in Question 6, which returns the average record times by year, followed by ` %>% ggplot(aes(year,mean)) + geom_bar(stat='identity')` Hint2: To make your figure wider, you can insert fig.width=10 inside the curly brackets at the beginning of your r code chunk below, as {r, fig.width=10} which I already did for you below,*
 
 ```{r, fig.width=10}
-
+library(ggplot2)
+ggplot(yeartimes, aes(year, avg)) + geom_bar(stat='identity') + labs(title = "Average Times for Holding Records by Year", x = "Year", y = "Average Time (s)")
+#I do not see a clear pattern over time.  
 ```
 
 # Question 8
@@ -89,7 +104,7 @@ Create two overlaid histograms by `type` on the same plot where each histogram s
 Note: Set `alpha=.5` for transparency.
 
 ```{r}
-
+records %>% select(type, time) %>% ggplot(aes(time, fill=type))+geom_histogram(alpha=.5, bins=48)+labs(x="Time (s)", y="Frequency", title="Frequencies of Race Times by Track Type", fill="Track Type")
 ```
 
 # Question 9
