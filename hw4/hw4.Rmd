@@ -111,20 +111,23 @@ records %>% select(type, time) %>% ggplot(aes(time, fill=type))+geom_histogram(a
 Three Lap time reports the total time spent finishing three laps in total, as opposed to finishing a single lap. Let's divide all time observations with `type=="Three Lap"` by 3 to check whether **per lap** performance declines across Three Lap vs. Single Lap. Generate a new variable named `time_per` which is the time spent per round, and create two overlaid histograms of `type_per` by `type`. Hint: Use `mutate()`, and inside `mutate()` use `ifelse()` function to conditionally replace rows: e.g.., `ifelse(type=="Three Lap",time/3,time)` which divides `time` by three only if `type=="Three Lap"`.
 
 ```{r}
-
+records %>% mutate(timePerLap = ifelse(type=="Three Lap", time/3, time)) %>% ggplot(aes(timePerLap, fill=type))+geom_histogram(alpha=.5, bins=48)+labs(x="Time (s)", y="Frequency", title="Frequencies of Race Times by Track Type", fill="Track Type")
 ```
+
 # Question 10
 There appears to be recent discoveries of shortcuts within some of the tracks causing a number of extraordinarily fast records set in `Three Lap` tracks (Have you noticed this in your graph in Question 9?). Replicate your histogram in Question 9 with `shortcut=="No"` filter.
 
 ```{r}
-
+filter(records, shortcut=="No") %>% mutate(timePerLap = ifelse(type=="Three Lap", time/3, time)) %>% ggplot(aes(timePerLap, fill=type))+geom_histogram(alpha=.5, bins=48)+labs(x="Time (s)", y="Frequency", title="Frequencies of Race Times by Track Type", fill="Track Type")
 ```
 
 # Question 11
 Lastly, compare the mean `time` by `system_played`. Do you observe a difference across the two game systems? (Note: NTSC version of the game runs at 60 FPS (Frames Per Second), and PAL runs at 50 FPS!) Does this appear to affect performance of records set?
 
 ```{r}
-
+systimes = summarise(group_by(records, system_played), avg = mean(time))
+systimes
+#Yes, PAL has a much higher average time than NTSC.  It seems like higher frame rate of NTSC increases performance/speed.  
 ```
 
 You are done! 🏁 Don't forget to commit and push your .Rmd file to your Github repository before the due date. (Well... the checkered flag emoji is now super relevant for this assignment!)
