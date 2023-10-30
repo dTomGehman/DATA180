@@ -19,11 +19,17 @@ X <- matrix(c(-1,-2,4,2,0,0,-2,2,2,-1,-1,3,3,0,0,2,2,-3,1,1),nrow=5,byrow = T)
 print(X)
 ```
 
-a) Find the Euclidean distance between the first and second objects. Round the answer to have two decimal points. 
+a) Find the Euclidean distance between the first and second objects. Round the answer to have two decimal points.   
 
-b) Find the Manhattan distance between the first and third objects. Round the answer to have two decimal points.
+D = sqrt((-1-0)^2 + (-2-0)^2 + (4+2)^2 + (2-2)^2) = sqrt(1 + 4 + 36 + 0) = 6.40  
 
-c) Find the Minkowski distance ($\ro$ = 3) between the second and third objects. Round the answer to have two decimal points.  
+b) Find the Manhattan distance between the first and third objects. Round the answer to have two decimal points.  
+
+D = |-1-2| + |-2+1| + |4+1| + |2-3| = 3 + 1 + 5 + 1 = 10.00  
+
+c) Find the Minkowski distance ($\ro$ = 3) between the second and third objects. Round the answer to have two decimal points.    
+
+D = (|0-2|^3 + |0+1|^3 + |-2+1|^3 + |2-3|^3)^(1/3) = (8 + 1 + 1 + 1)^(1/3) = 2.22  
 
 # Question 2
 a) Use the filter and select commands to choose only vans from the `Cars93` data set. Select the variables (in this order) Model, Price, EngineSize, Horsepower, MPG.highway, and Length. Name this object `Vans93`. Note: Be sure to load the `dplyr` package after loading `MASS` to prevent masking of the select command. How many objects does `Vans93` have? Print the `Vans93` dataframe in your solutions. Note2: If you get any errors with `select()`, try using `dplyr::select()` to avoid conflicts in `dplyr` and `MASS` packages.
@@ -31,7 +37,9 @@ a) Use the filter and select commands to choose only vans from the `Cars93` data
 library(MASS)
 library(dplyr)
 
-
+Vans93= filter(Cars93, Type == "Van") %>% select(Model, Price, EngineSize, Horsepower, MPG.highway, Length)
+Vans93
+#nine objects
 
 ```
 
@@ -44,7 +52,11 @@ rownames(Vans_Euclidean)<-Vans93[,1]
 
 Finally, round the values in this matrix to the hundredths place (two decimal points). Paste the final version of the matrix `Vans_Euclidean` into your solutions. Which two Vans (give the models) have the shortest distance between them? Which two have the largest distance between them?
 ```{r}
-
+Vans_Euclidean = dist(as.matrix(Vans93[,2:6]), method = "euclidean")
+#colnames(Vans_Euclidean)<-Vans93$Model
+#rownames(Vans_Euclidean)<-Vans93$Model
+Vans_Euclidean = round(Vans_Euclidean, 2)
+Vans_Euclidean
 ```
 
 
