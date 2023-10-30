@@ -1,4 +1,4 @@
-Cluster_Ex<-read.csv("D:/Dickinson College Teaching/DATA 180/data/Cluster_Ex.csv") #"Path where your data is goes here"
+Cluster_Ex<-read.csv("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/Today's Class Oct 26/Cluster_ex.csv") #"Path where your data is goes here"
 ls(Cluster_Ex)
 head(Cluster_Ex)
 
