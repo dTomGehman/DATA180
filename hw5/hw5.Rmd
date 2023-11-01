@@ -53,8 +53,8 @@ rownames(Vans_Euclidean)<-Vans93[,1]
 Finally, round the values in this matrix to the hundredths place (two decimal points). Paste the final version of the matrix `Vans_Euclidean` into your solutions. Which two Vans (give the models) have the shortest distance between them? Which two have the largest distance between them?
 ```{r}
 Vans_Euclidean = dist(as.matrix(Vans93[,2:6]), method = "euclidean")
-#colnames(Vans_Euclidean)<-Vans93$Model
-#rownames(Vans_Euclidean)<-Vans93$Model
+#colnames(Vans_Euclidean)<-Vans93[,1]
+#rownames(Vans_Euclidean)<-Vans93[,1]
 Vans_Euclidean = round(Vans_Euclidean, 2)
 Vans_Euclidean
 ```
@@ -63,7 +63,11 @@ Vans_Euclidean
 
 c) Repeat the steps in part (b) but use the Manhattan metric and call the object `Vans_Manhattan`.
 ```{r}
-
+Vans_Manhattan = dist(as.matrix(Vans93[,2:6]), method = "manhattan")
+#colnames(Vans_Manhattan)<-Vans93[,1]
+#rownames(Vans_Manhattan)<-Vans93[,1]
+Vans_Manhattan = round(Vans_Manhattan, 2)
+Vans_Manhattan
 ```
 
 The vans with the shortest distance between them are the Quest and the MPV (5.0). The vans with the largest distance between them are the Lumina APV and the Eurovan (76.7).
