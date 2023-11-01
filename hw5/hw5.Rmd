@@ -115,23 +115,34 @@ a) First, read in the `vertebrate.csv` file and store it in a dataframe object n
 library("readxl")
 setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw5")
 vertebrate = read.csv("vertebrate.csv")
+nrow(vertebrate)
+vertebrate
 ```
 
 b) Perform two separate clustering analyses of the data using the `hclust` function. Provide the dendrograms for both clustering methods.
 
 (i)	using the Euclidean metric with complete linkage. Note: Similar to Question 2, start by creating a distance matrix named `vertebrate_euclidean` which should not include any text column. Add row and column names to the matrix from the `vertebrate` dataframe. Then apply `dist()` once again before feeding the matrix into `hclust()` function.
 ```{r}
-Ver_Euclidean<-as.matrix(dist(vertebrate[,-1]))
+Ver_Euclidean<-as.matrix(dist(vertebrate[,2:7])) #omit 1st and 8th columns, contain text
+rownames(Ver_Euclidean)=vertebrate[,1]
+colnames(Ver_Euclidean)=vertebrate[,1]
 
+Ver_Eucl_Complete = hclust(as.dist(Ver_Euclidean), method="complete")
+Ver_Eucl_Complete
 ```
 
 (ii)using the Manhattan metric with single linkage and
 ```{r}
-
+Ver_Manhattan<-as.matrix(dist(vertebrate[,2:7]))
+rownames(Ver_Manhattan)=vertebrate[,1]
+colnames(Ver_Manhattan)=vertebrate[,1]
+Ver_Manh_Single = hclust(as.dist(Ver_Manhattan), method="single")
+Ver_Manh_Single
 ```
 
 Which method do you prefer?
 
+I like the Euclidean distance since it interprets distances like they are in actual space, and the distances are more unique (Manhattan distance yields a lot of distances that are the same, leading to a flat-looking dendrogram).  
 
 In your dendrograms:
 
@@ -146,7 +157,15 @@ In your dendrograms:
 Bonus: (not required) generate the same dendrogram using the `ggdendro` package.
 
 ```{r}
+plot(Ver_Eucl_Complete, lwd=3, main="Clustered vertabrates, Euclidean Distance,\nComplete Linkage", cex.lab=1.25, xlab="Vertebrates", hang=-1, sub="")
 
+plot(Ver_Manh_Single, lwd=3, main="Clustered vertabrates, Manhattan Distance,\nSingle Linkage", cex.lab=1.25, xlab="Vertebrates", hang=-1, sub="")
+
+#bonus redo with ggdendro
+library(ggplot2)
+library(ggdendro)
+ggdendrogram(Ver_Eucl_Complete)+labs(title="Clustered vertabrates, Euclidean Distance,\nComplete Linkage")
+ggdendrogram(Ver_Manh_Single) + labs(title="Clustered vertabrates, Manhattan Distance,\nSingle Linkage")
 
 ```
 
