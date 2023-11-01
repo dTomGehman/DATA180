@@ -52,20 +52,25 @@ rownames(Vans_Euclidean)<-Vans93[,1]
 
 Finally, round the values in this matrix to the hundredths place (two decimal points). Paste the final version of the matrix `Vans_Euclidean` into your solutions. Which two Vans (give the models) have the shortest distance between them? Which two have the largest distance between them?
 ```{r}
-Vans_Euclidean = dist(as.matrix(Vans93[,2:6]), method = "euclidean")
-#colnames(Vans_Euclidean)<-Vans93[,1]
-#rownames(Vans_Euclidean)<-Vans93[,1]
+Vans_Euclidean=dist(as.matrix(Vans93[,2:6]), method = "euclidean", diag=TRUE, upper=TRUE)
+Vans_Euclidean=as.matrix(Vans_Euclidean)
+
+colnames(Vans_Euclidean)<-Vans93[,1]
+rownames(Vans_Euclidean)<-Vans93[,1]
+
 Vans_Euclidean = round(Vans_Euclidean, 2)
 Vans_Euclidean
+#longest distance:  Lumina_APV & Eurovan - 61.8
+#shortest distance:  Aerostar & Caravan - 3.44
 ```
 
 
 
 c) Repeat the steps in part (b) but use the Manhattan metric and call the object `Vans_Manhattan`.
 ```{r}
-Vans_Manhattan = dist(as.matrix(Vans93[,2:6]), method = "manhattan")
-#colnames(Vans_Manhattan)<-Vans93[,1]
-#rownames(Vans_Manhattan)<-Vans93[,1]
+Vans_Manhattan = as.matrix(dist(as.matrix(Vans93[,2:6]), method = "manhattan"))
+colnames(Vans_Manhattan)<-Vans93[,1]
+rownames(Vans_Manhattan)<-Vans93[,1]
 Vans_Manhattan = round(Vans_Manhattan, 2)
 Vans_Manhattan
 ```
@@ -81,14 +86,17 @@ print(D)
 
 Find (by hand) the inter-group distance between A = $\{O_1, O_4\}$ and B = $\{O_2, O_3, O_5\}$ (where $O_n$ denotes the $n$th object in the distance matrix **D**) using
 
-a) Nearest-neighbor
+a) Nearest-neighbor 
 
+min$\{d(O_1, O_2), d(O_1, O_3), d(O_1, O_5), d(O_4, O_2), d(O_4, O_3), d(O_4, O_5)\}$ = 1.0
 
+b) Farthest-neighbor  
 
-b) Farthest-neighbor
-
+max$\{d(O_1, O_2), d(O_1, O_3), d(O_1, O_5), d(O_4, O_2), d(O_4, O_3), d(O_4, O_5)\}$ = 9.0
 
 c) Average-neighbor
+
+$(d(O_1, O_2)+d(O_1, O_3)+d(O_1, O_5)+d(O_4, O_2)+d(O_4, O_3)+d(O_4, O_5))/6$ = 4.1
 
 # Question 4
 Consider the following dendrogram created by a hierarchical clustering of 11 frequently used English words.
@@ -104,7 +112,9 @@ Let's practice hierarchical clustering with the `vertebrate` dataset that is sav
 
 a) First, read in the `vertebrate.csv` file and store it in a dataframe object named `vertebrate`. How many rows does the dataframe have? Print the entire dataset in your solutions.
 ```{r}
-
+library("readxl")
+setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw5")
+vertebrate = read.csv("vertebrate.csv")
 ```
 
 b) Perform two separate clustering analyses of the data using the `hclust` function. Provide the dendrograms for both clustering methods.
