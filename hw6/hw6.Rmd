@@ -2,7 +2,7 @@
 title: "HW 6"
 subtitle: "Data 180, Professor Kennedy"
 author: 
-  name: "Your Name"
+  name: "Tom Gehman"
   email: "XXXX@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
@@ -30,7 +30,7 @@ head(Mammals_Milk)
 Use the `summary()` function to produce a summary of the variables (mean, median..) in the Mammals_Milk data frame.
 
 ```{r}
-
+summary(Mammals_Milk)
 ```
 
 To have comparable units, let's standardize values (aka get z-scores) of the five variables: Water, Protein, Fat, Lactose, and Ash using the scale function and store it as an object `Mammals_Milk_Std`. A 0 z-score means an observation is exactly on its mean; a negative value means it's smaller than mean; a larger number means it's larger than the mean. ([Here is a nice summary on z-scores](https://www.simplypsychology.org/z-score.html)). Use this standardized object when indicated in the next questions. 
@@ -50,7 +50,9 @@ Use hierarchical clustering (i.e. `hclust`) to cluster the animals based on the 
 *	Set the frame.plot argument to T to draw a box around the dendrograms
 
 ```{r}
-
+dist_animals = dist(Mammals_Milk_Std, method = "euclidean")
+h_animals = hclust(dist_animals, method="complete")
+plot(h_animals, lwd=3, cex.lab=1.25, main="Mammals Clustered by Std. Milk Composition \n Euclidean Metric, Complete Linkage", hang=-1, xlab="Mammals", sub="", frame.plot=T)
 ```
 
 # Question 3
