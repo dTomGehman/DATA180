@@ -8,7 +8,7 @@ date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
 ---
-
+20/20. Good job. 
 **Due date:** November 2 beginning of class.
 
 # Question 1
@@ -115,9 +115,9 @@ Let's practice hierarchical clustering with the `vertebrate` dataset that is sav
 
 a) First, read in the `vertebrate.csv` file and store it in a dataframe object named `vertebrate`. How many rows does the dataframe have? Print the entire dataset in your solutions.
 ```{r}
-library("readxl")
-setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw5")
-vertebrate = read.csv("vertebrate.csv")
+#library("readxl")
+# setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw5")
+vertebrate <- read.csv("C:/Users/rodge/Downloads/vertebrate.csv")
 nrow(vertebrate)
 vertebrate
 ```
