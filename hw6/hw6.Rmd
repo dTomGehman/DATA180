@@ -63,11 +63,11 @@ set.seed(125)
 MMilk_km_3 = kmeans(Mammals_Milk_Std, centers=3, nstart=100)
 MMilk_km_4 = kmeans(Mammals_Milk_Std, centers=4, nstart=100)
 
-Mammals_Milk_Std = mutate(as.data.frame(Mammals_Milk_Std), km_3=MMilk_km_3$cluster)
-Mammals_Milk_Std = mutate(as.data.frame(Mammals_Milk_Std), km_4=MMilk_km_4$cluster)
+Mammals_Milk = mutate(as.data.frame(Mammals_Milk), km_3=MMilk_km_3$cluster)
+Mammals_Milk = mutate(as.data.frame(Mammals_Milk), km_4=MMilk_km_4$cluster)
 
-MMtable_k3=arrange(Mammals_Milk_Std, km_3)
-MMtable_k4=arrange(Mammals_Milk_Std, km_4)
+MMtable_k3=arrange(Mammals_Milk, km_3)
+MMtable_k4=arrange(Mammals_Milk, km_4)
 
 print(MMtable_k3)
 print(MMtable_k4)
@@ -87,7 +87,21 @@ Use the `group_by` and `summarize` functions to provide tables summarizing the r
 Call the summary tables `MMilk_Agg_K3` and `MMilk_Agg_K4`. Round the elements in the data frames to the hundredths place and paste them into your solutions.
 
 ```{r}
+MMilk_Agg_K3 = round(summarize(group_by(MMtable_k3, km_3), Count=n(), 
+          Mean_Water=mean(Water),
+          Mean_Protein=mean(Protein), 
+          Mean_Fat=mean(Fat), 
+          Mean_Lactose=mean(Lactose), 
+          Mean_Ash=mean(Ash)), 2)
 
+MMilk_Agg_K4 = round(summarize(group_by(MMtable_k4, km_4), Count=n(), 
+          Mean_Water=mean(Water),
+          Mean_Protein=mean(Protein), 
+          Mean_Fat=mean(Fat), 
+          Mean_Lactose=mean(Lactose), 
+          Mean_Ash=mean(Ash)), 2)
+MMilk_Agg_K3
+MMilk_Agg_K4
 ```
 # Question 5
 For the K=3 solution, make a set of boxplots showing the distribution of each variable by cluster membership. In total you should have five graphs (one for each variable in the dataset). Each graph should include three boxplots (one for each cluster). *Hint:* Use `ggplot2` with `geom_boxplot` and create five different ggplot objects. Name them as graph1, graph2,... as below. Finally, use the library named `cowplot` which includes the function `plot_grid()` that enables plotting multiple graphs side by side. See more in the cell below. Make sure to change `eval=F` to `eval=T` in its options when you execute the cell.
