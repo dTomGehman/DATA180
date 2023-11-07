@@ -60,6 +60,17 @@ For k = 3 and k = 4, perform a k-means clustering of the mammals based on their 
 
 ```{r}
 set.seed(125)
+MMilk_km_3 = kmeans(Mammals_Milk_Std, centers=3, nstart=100)
+MMilk_km_4 = kmeans(Mammals_Milk_Std, centers=4, nstart=100)
+
+Mammals_Milk_Std = mutate(as.data.frame(Mammals_Milk_Std), km_3=MMilk_km_3$cluster)
+Mammals_Milk_Std = mutate(as.data.frame(Mammals_Milk_Std), km_4=MMilk_km_4$cluster)
+
+MMtable_k3=arrange(Mammals_Milk_Std, km_3)
+MMtable_k4=arrange(Mammals_Milk_Std, km_4)
+
+print(MMtable_k3)
+print(MMtable_k4)
 
 ```
 
