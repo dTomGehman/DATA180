@@ -3,7 +3,7 @@ title: "HW 6"
 subtitle: "Data 180, Professor Kennedy"
 author: 
   name: "Tom Gehman"
-  email: "XXXX@dickinson.edu"
+  email: "gehmand@dickinson.edu"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: 
   html_document
@@ -106,13 +106,13 @@ MMilk_Agg_K4
 # Question 5
 For the K=3 solution, make a set of boxplots showing the distribution of each variable by cluster membership. In total you should have five graphs (one for each variable in the dataset). Each graph should include three boxplots (one for each cluster). *Hint:* Use `ggplot2` with `geom_boxplot` and create five different ggplot objects. Name them as graph1, graph2,... as below. Finally, use the library named `cowplot` which includes the function `plot_grid()` that enables plotting multiple graphs side by side. See more in the cell below. Make sure to change `eval=F` to `eval=T` in its options when you execute the cell.
 
-```{r, eval=F}
+```{r, eval=T}
 require(cowplot)
-graph1 <- 
-graph2 <- 
-graph3 <- 
-graph4 <- 
-graph5 <- 
+graph1 <- ggplot(MMtable_k3)+geom_boxplot(aes(Water))
+graph2 <- ggplot(MMtable_k3)+geom_boxplot(aes(Protein))
+graph3 <- ggplot(MMtable_k3)+geom_boxplot(aes(Fat))
+graph4 <- ggplot(MMtable_k3)+geom_boxplot(aes(Lactose))
+graph5 <- ggplot(MMtable_k3)+geom_boxplot(aes(Ash))
 
 plot_grid(graph1, graph2, graph3, graph4, graph5, labels = "AUTO")
 ```
