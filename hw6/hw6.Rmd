@@ -121,7 +121,16 @@ plot_grid(graph1, graph2, graph3, graph4, graph5, labels = "AUTO")
 Create a plot showing how WGSS changes for K = 1 to 8 groups. For each K choice, cluster the mammals based on their standardized milk composition and set the nstart argument to run at 50 at each iteration. Compute and record WGSS. After the loop is done, show the plot of WGSS by number of clusters in your solutions. How many clusters does the elbow plot suggest? How does this compare to your impression from the dendrogram in Question 2?
 
 ```{r}
+WGSSs = list()
+for (i in 1:8){
+  WGSSs=append(WGSSs, kmeans(Mammals_Milk_Std, centers=i, nstart=50)$tot.withinss)
+}
+plot(c(1:8),WGSSs,type="b",pch=16,cex=1.3,ylim=c(0,120), xlab="Number of Groups",ylab="WGSS")
 
+#The elbow plot suggests that 2, 3, or 4 clusters may be good options.  
+#However, the wgss for k=3 isn't as small as I would have expected; the slope between k=2&3 is almost as low as between k=3&4; the curve isn't as smooth and rounded as normal.  
+#The dendrogram seems to reflect this.  k=2&4 appear to be nice numbers of clusters, but k=3 clusters leaves one huge cluster and two little ones.  
+#It's very subjective, but it seems that both hclustering and kmeans point to the idea that either 2 or 4 clusters are optimal and k=3 is ok but not quite as good/efficient.  
 ```
 
 
