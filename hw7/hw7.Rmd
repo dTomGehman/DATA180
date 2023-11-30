@@ -56,13 +56,14 @@ levels(factor(news$year)) #19 levels, so 19 years
 Store the headlines column in a vector of text named `charVector`. Print the first 6 entries in the vector.
 ```{r}
 charVector = news$headline_text
-print(charVector)
+print(charVector[1:6])
 ```
 
 # Question 3
 Convert `charVector` into a vector source object named `wordVector` using the function `VectorSource()`. (See class notes on how to do this) Then convert `wordVector` into a corpus object named `wordCorpus` using the function `Corpus()`.
 ```{r}
-
+wordVector = VectorSource(charVector)
+wordCorpus = Corpus(wordVector)
 ```
 
 # Question 4
@@ -73,7 +74,11 @@ We are now ready to do some basic trimming on the text. Do the following on the 
 * Remove stopwords (e.g., the, a, at, etc.)
 
 ```{r}
-
+wordCorpus = tm_map(wordCorpus, content_transformer(tolower))
+wordCorpus = tm_map(wordCorpus, removeWords, stopwords("en"))
+wordCorpus = tm_map(wordCorpus, removePunctuation)
+wordCorpus = tm_map(wordCorpus, removeNumbers)
+wordCorpus[[1]]$content #first headline
 ```
 
 # Question 5
