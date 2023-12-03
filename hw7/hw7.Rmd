@@ -148,12 +148,16 @@ Using the `term_stats()` function, return the 20 most frequent single words that
 
 ```{r}
 newts = term_stats(wordVector, text_filter(drop_symbol=T, drop=stopwords_en, drop_punct=T, drop_number=T))
-newts = 
+newts = arrange(newts, desc(count))
+head(newts, 20)
 ```
 
 # Question 11
 Repeat the previous question for word pairs (frequency of 2 words that show up, instead of 1 word)
 ```{r}
+newts = term_stats(wordVector, text_filter(drop_symbol=T, drop=stopwords_en, drop_punct=T, drop_number=T), ngrams=2)
+newts = arrange(newts, desc(count))
+head(newts, 20)
 ```
 
 # Question 12
