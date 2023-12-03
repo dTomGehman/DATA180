@@ -31,8 +31,9 @@ In this homework, we will analyze news headlines data scraped from abcnews, post
 Read the `news.csv` into R and create the object `news` using
 
 ```{r}
-#library(tidyverse)
+library(tidyverse)
 library(tm)
+setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw7")
 news<-read.csv("news.csv",header=T)
 ```
 
@@ -84,20 +85,24 @@ wordCorpus[[1]]$content #first headline
 # Question 5
 What is a term document matrix? Explain. Create a term document matrix from the news vector and store it as an object named `tdm` using the function `TermDocumentMatrix`.
 ```{r}
-
+#a term document matrix is a matrix containing frequencies of words (terms) in the collection of documents
+tdm = TermDocumentMatrix(wordCorpus)
 ```
 
 # Question 6
 Convert `tdm` into a matrix named `m`. Store the frequency of occurrence of each word in the news headlines in an object named `wordCounts`. Return the top 10 most frequent words. (Note: if you run into memory issues creating the matrix `m`, try using one of the computers in Tome.)
 ```{r}
-
+m=as.matrix(tdm)
+wordCounts = rowSums(m)
+wordCounts = sort(wordCounts, decreasing=TRUE)
+wordCounts[1:10]
 ```
 
 # Question 7
 Create a barplot of the words that showed up at least 50 times in the news headlines. Rotate the x axis labels by 90 degrees, and decrease the label font size by 25%.
 
 ```{r}
-
+barplot(wordCounts[wordCounts>=50], las=2, cex.names=.75)
 ```
 
 
@@ -105,7 +110,12 @@ Create a barplot of the words that showed up at least 50 times in the news headl
 What is the percentage of positive words in the news headlines? What is the percentage of negative words? Make a barplot for each (for positive and negative words that showed up separately) showing the most frequent words for words that showed up at least 20 times. (Note: don't forget to get the total number of unique words that showed up in the data.)
 
 ```{r}
-
+posmatch = wordCounts[match(names(wordCounts), posWords, nomatch = 0) != 0]
+barplot(posmatch[posmatch>=20], las=2, cex.names=.75)
+sum(posmatch)/sum(wordCounts) #3.7% positive words
+negmatch = wordCounts[match(names(wordCounts), negWords, nomatch = 0) != 0]
+barplot(negmatch[negmatch>=20], las=2, cex.names=.75)
+sum(negmatch)/sum(wordCounts) #7.8% negative words
 ```
 
 Let's get the number of articles published in each year and month. Note that the chunk below creates two new variables `count` and `yearmonth`:
@@ -118,13 +128,16 @@ news <- news %>% group_by(year,month) %>% mutate(count=n(), yearmonth = paste(ye
 Using `ggplot2`, create a barplot for the frequency of articles released in each year and month. On the x axis, you should have year month, e.g., 2003/10, 2003/11, 2003/12, 2004/1, on the y-axis you should have the number of articles released in the data. Do you see a change in the number of articles released across years? (Hint: use `factor()` with `levels=` options specified when you call `aes(x=)` to have a proper chronological sorting on your x axis. Use `+theme(axis.text=element_text(size=4,angle=90)` to fit the dates on the x axis.)
 
 ```{r}
+factor(news$yearmonth, order=T)
+ggplot(news, aes(factor(yearmonth, order=T))) + geom_bar() + theme(axis.text=element_text(size=4,angle=90))
+#The number of articles released per month slowly increased through 2013 and then started to decrease.  
 ```
 
 Let's now practice working with `quanteda` and `corpus` packages. Install the packages first if you don't have them in your computer and load them in in R.
 
 ```{r}
 library("quanteda")
-library('corpus')
+library('corpus')#I installed this based off of an older version.  
 ```
 
 # Question 10
@@ -134,7 +147,8 @@ Using the `term_stats()` function, return the 20 most frequent single words that
 * stopwords
 
 ```{r}
-
+newts = term_stats(wordVector, text_filter(drop_symbol=T, drop=stopwords_en, drop_punct=T, drop_number=T))
+newts = 
 ```
 
 # Question 11
