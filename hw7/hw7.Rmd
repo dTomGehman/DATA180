@@ -163,18 +163,31 @@ head(newts, 20)
 # Question 12
 Create a corpus object using `corpus()` function. Store it in an object named `newscorpus`. Convert `newscorpus` into paragraphs with `corpus_reshape()`.
 ```{r}
+newscorpus = corpus_reshape(corpus(news$headline_text), to="paragraphs")
+head(newscorpus)
 ```
 
 # Question 13
 Create a term document matrix named `news_dtm` by using the `dfm()` function. While you call `dfm()`, make sure to clean the paragraphs by keeping only the stems of the words, removing punctuations, removing symbols, removing numbers, and removing stopwords. If you wish to get rid of anything that does not look correct in the data (such as weird bunch of characters that show up as "words") you may trim them out at this stage using `dfm_remove()`. Finally, trim `news_dtm` such that it contains only words that show up at least 50 times. Print the first 6 rows of `news_dtm`. (Note: Again, ignore warnings.)
 ```{r}
+#toks=tokens(newscorpus, remove_punct=T, remove_symbols=T, remove_numbers=T)
+#toks=tokens_remove(toks, stopwords("en"))
+news_dtm = dfm(newscorpus, stem=TRUE, remove_punct=TRUE, remove_symbols = TRUE, remove_numbers = TRUE, remove=c(stopwords("english")))
+news_dtm <- dfm_remove(news_dtm, c("s","?","?",'thi'))
+news_dtm <- dfm_trim(news_dtm, min_termfreq=50)
+head(news_dtm)
 ```
 
 # Question 14
 Create a wordcloud of `news_dtm` using `textplot_wordcloud()`. Comment on words that you were surprised and not surprised to see in the news headlines dataset.
 ```{r}
 library("quanteda.textplots")
-
+textplot_wordcloud(news_dtm)
+#I was not surprised to see many of the words.  
+#Words like "police" and "say" are common in headlines
+#given that these are Australian, words involving Australia and its towns and territories weren't surprising.  
+#I was a bit surprised that "woman" is much less common than "man"; I'd expect them to be a bit more similar.  
+#I was also surprised that there aren't as many words about finances or economics; there's much more about crime/disaster and some political terms.  
 ```
 
 
