@@ -202,20 +202,63 @@ library('tidytext')
 Run the LDA algorithm using k = 8. Store your output in object named `topic_model`. Print the 10 most frequent words that occurred in each 8 topic.
 
 ```{r}
-
+news_topics <- convert(news_dtm, to = "topicmodels")
+topic_model <- LDA(news_topics, method = "VEM", k=8)
+terms(topic_model,10)
 ```
 
 
 # Question 15
 Plot betas of top 10 words with highest beta for each 8 topic. Comment on 3-4 news headline groups in terms of their topic content.
 ```{r}
+betas <- tidy(topic_model, matrix = "beta")
+betas
 
+top_topics_b <- betas %>%
+  group_by(topic) %>%
+  slice_max(beta, n = 10) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+top_topics_b %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(beta, term, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) + 
+  facet_wrap(~topic, scales = "free") + 
+  scale_y_reordered()
+# Topics 4 and 6 seem to be about similar news, but 4 involves the northern part, and 6 involves the southern part.  They both involve "police," "charge," and "win."  
+# Topic 3 clearly involves health.  It contains "health," "hospital," and "death" in the first 10.  Looking down the list past top 10, "test" and "coronavirus" are also there.  
+# Topic 1 involves politics.  It has words like "plan" and "council," which suggest gov't work, and it has "us" and "warn," which may suggest global relations as well. I looked in the top 20, and "elect," "market," "case," and "job" are there as well.  
 ```
 
 # Question 16
 Plot gammas of top 5 documents with highest gamma for each 8 topic. Return the contents of the 5 documents with highest gamma only for topics 1 and 2. Does it makes sense that these documents are assigned to topics 1 and 2 accordingly? Comment.
 ```{r}
+gammas <- tidy(topic_model, matrix = "gamma")
+#gammas
 
+top_g <- gammas %>%
+  group_by(topic) %>%
+  slice_max(gamma, n = 5) %>% 
+  ungroup() %>%
+  arrange(document, -gamma)
+
+top_g %>%
+  mutate(document = reorder_within(document, gamma, topic)) %>%
+  ggplot(aes(gamma, document, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic, scales = "free") +
+  scale_y_reordered()
+
+top_g_one = mutate(filter(top_g, topic==1), id=as.numeric(substring(document, 5)))#obtain headlines for first topic.  id is the column with numbers representing the documents
+top_g_one = mutate(top_g_one, contents = newscorpus[id]) #index id to get actual text content
+top_g_one
+#these headlines aren't all closely related, but they seem to deal with jobs and some other news.  
+#I reran the code with n=20 in line 242, and the headlines mostly regard either jobs and international news.  It seems like these and other minor things were lumped into one topic.  
+top_g_two = mutate(filter(top_g, topic==2), id=as.numeric(substring(document, 5)))
+top_g_two = mutate(top_g_two, contents = newscorpus[id])
+top_g_two
+#this topic is clearly about murders and other crimes, and the headlines reflect that.  
 ```
 
 
