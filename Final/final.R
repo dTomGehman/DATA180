@@ -60,9 +60,14 @@ names(sort(-table(loandefaults$credit_age)))[1]#295
 
 #part c
 library('ggplot2')
-ggplot(loandefaults, aes(num_card_inq_24_month)) + geom_histogram() #this confirms the strong right skew
-ggplot(loandefaults, aes(tot_amount_currently_past_due)) + geom_histogram() #this confirms the strong right skew
-ggplot(loandefaults, aes(credit_age)) + geom_histogram() #this shows a strong bell shape.  
+ggplot(loandefaults, aes(num_card_inq_24_month)) + geom_histogram(binwidth=1) + labs(title="Recent Card Inquiries", x="Number of Card Inquiries in Last 24 Months", y="Frequency")
+#this confirms the strong right skew
+
+ggplot(loandefaults, aes(tot_amount_currently_past_due)) + geom_histogram() + labs(title="Amounts Currently Past Due", x="Total Amount Past Due ($)", y="Frequency") 
+#this confirms the strong right skew
+
+ggplot(loandefaults, aes(credit_age)) + geom_histogram() + labs(title="Credit Ages", y="Frequency", x="Age (months) of first credit product obtained by the applicant")
+#this shows a strong bell shape.  
 
 #part d
 print(levels(factor(loandefaults$rep_education))) #the 4 categories
@@ -73,8 +78,37 @@ print(levels(factor(loandefaults$rep_education))) #the 4 categories
 #Additionally, another option is to have four variables created, each representing a level.  
 #A 1 or 0 is assigned for each object depending on whether or not it matches the level.  
 #E.g., an account with college ed would be assigned 1 for "college" and 0 for all others.  
-#This solution has no hierarchy.  It makes a sparse matrix with multiple variables.  
+#This solution has no hierarchy.  It makes a sparse section of the dataframe, adding multiple variables (not just one).  
 
 
+#Question 3
+#part a
+ggplot(loandefaults, aes(ifelse(Def_ind==1, "Defaulted", "Not Defaulted"), fill=as.factor(Def_ind)))+geom_bar()+scale_fill_manual(values=c("green", "red"))+labs(title="Loans Defaulted", y="Frequency", x="Account Status", subtitle="Defaulted after an account was approved and opened with bank XYZ\nin the past 18 months.  ")
+#There are two categories, Defaulted and Not Defaulted (1 and 0).  Most of the loans have not been defaulted (15,000), but about 2,000 have.  
 
-#note: add labels to histograms
+#part b
+ggplot(loandefaults, aes(rep_education, fill=rep_education))+geom_bar()+labs(title="Educations Level of Account Holders", x="Education Level", y="Frequency")
+#There are four categories.  A majority (~10,000) of account holders have a college education.  
+#Fewer than 5,000 have a high school education or less, and fewer than 2,500 have been to graduate school.  
+#A small number are in the "other" category.  
+
+#part c
+ggplot(loandefaults, aes(rep_income/1000))+geom_histogram()+labs(title="Incomes of Account Holders", x="Income (thousands of dollars)", y="Frequency")
+#The incomes appear bell-shaped with a mean, median, and mode of about $170,000.  
+
+#part d
+ggplot(loandefaults, aes(tot_balance))+geom_boxplot()+labs(title="Account Balances", x="Balance ($)")
+#Based on the boxplot, the five number summary appears to be:  Min=0, Q1=90,000, Med=110,000, Q3=125,000, max=200,000
+#There appears to be at least a dozen upper outliers and a dozen lower outliers (but there could be more since they overlap on the plot).  
+
+#Actual values to confirm:  
+min(loandefaults$tot_balance)
+quantile(loandefaults$tot_balance, .25)
+median(loandefaults$tot_balance)
+quantile(loandefaults$tot_balance, .75)
+max(loandefaults$tot_balance)
+
+#the upper and lower fence can be given by
+median(loandefaults$tot_balance)+1.5*(quantile(loandefaults$tot_balance, .25)-quantile(loandefaults$tot_balance, .75))
+median(loandefaults$tot_balance)-1.5*(quantile(loandefaults$tot_balance, .25)-quantile(loandefaults$tot_balance, .75))
+#This is reflected on the plot, and there are many outliers on each side.  Not surprising for a data set this large.  
