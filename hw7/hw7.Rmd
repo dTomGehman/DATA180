@@ -10,7 +10,7 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-
+20/20. Good job Tom. 
 **Due date:** December 4 beginning of class.
 
 
@@ -29,11 +29,13 @@ knitr::opts_chunk$set(
 In this homework, we will analyze news headlines data scraped from abcnews, posted on Github in a csv file named `news.csv`.
 
 Read the `news.csv` into R and create the object `news` using
-
+```{r}
+#install.packages("cli")
+```
 ```{r}
 library(tidyverse)
 library(tm)
-setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw7")
+#setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/hw7")
 news<-read.csv("news.csv",header=T)
 ```
 
