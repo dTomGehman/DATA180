@@ -1,10 +1,10 @@
 #Daniel "Tom" Gehman
 #Professor Kennedy
 #Final Data 180
-
+# 40/40. Good job. 
 library('readxl')
-setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/Final")
-loandefaults = read.csv("loan_default_data_set.csv")
+#setwd("C:/Users/gehmand/OneDrive - Carlisle Area School District/Desktop/Data 180 dTomGehman/DATA180/Final")
+loandefaults = read.csv("C:/Users/rodge/OneDrive/Desktop/DATA 180 -Intoduction to Data Science/DATA-180-Introduction-to-Data-Science--Section-2/data/loan_default_data_set.csv")
 
 #Question 1
 #part a
